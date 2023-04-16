@@ -16,10 +16,6 @@ function getSeason(date) {
     return 'Unable to determine the time of year!';
   }
 
-  if (!(date instanceof Date)) {
-    throw Error('Invalid date!');
-  }
-
   try {
     date.toDateString();
   } catch {
@@ -29,27 +25,15 @@ function getSeason(date) {
   const month = date.getMonth();
 
   const seasons = {
-    winter: (month) => [11, 0, 1].includes(month),
-    spring: (month) => [2, 3, 4].includes(month),
-    summer: (month) => [5, 6, 7].includes(month),
-    fall: (month) => [8, 9, 10].includes(month),
+    winter: (month) => [11, 0, 1].includes(month) ? 'winter' : '',
+    spring: (month) => [2, 3, 4].includes(month) ? 'spring' : '',
+    summer: (month) => [5, 6, 7].includes(month) ? 'summer' : '',
+    fall: (month) => [8, 9, 10].includes(month) ? 'fall' : '',
   };
 
-  if ([11, 0, 1].includes(month)) {
-    return 'winter';
-  }
+  const { winter, spring, summer, fall } = seasons;
 
-  if ([2, 3, 4].includes(month)) {
-    return 'spring';
-  }
-
-  if ([5, 6, 7].includes(month)) {
-    return 'summer';
-  }
-
-  if ([8, 9, 10].includes(month)) {
-    return 'fall';
-  }
+  return winter(month) || spring(month) || summer(month) || fall(month);
 }
 
 module.exports = {
